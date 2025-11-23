@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUNZA CRASH - Multi-Layar</title>
+    <style>
+        /* ========================================================================= */
+        /* --- GLOBAL STYLING & FONT --- */
+        /* ========================================================================= */
+        :root {
+            /* Warna Login (Hacker/Ungu Neon) */
+            --bg-color-login: #0d0d0d;
+            --form-bg: #1a1a1a;
+            --primary-color: #9a00ff; /* Ungu neon */
+            --secondary-color: #4c008c;
+            --text-color-login: #f0f0f0;
+            --glow-color: #d100ff;
+            --border-color-login: #6600cc;
+            --error-color: #ff3333; 
+
+            /* Warna App Utama (Cyber Ungu-Hitam) */
+            --color-dark-bg: #1a0033;
+            --color-light-bg: #330066;
+            --color-neon-primary: #ff00ff; /* Magenta Neon Terang */
+            --color-neon-secondary: #00ff00; /* Hijau Neon */
+            --color-text-main: #e0b0ff; 
+            --color-border-accent: #a020f0; 
+        }
+
+        body {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: var(--bg-color-login); /* Default background */
+            color: var(--text-color-login);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden; 
+            padding-top: 20px;
+            transition: background-color 0.5s ease; /* Transisi untuk body background */
+        }
+
+        /* ========================================================================= */
+        /* --- LAYAR 1: LOGIN STYLING (Flunza Crash) --- */
+        /* ========================================================================= */
+        
+        #loginScreen {
+            display: flex; /* Default: terlihat */
+            flex-direction: column;
+            align-items: center;
+            width: 100%; 
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .main-title {
+            font-size: 3.5em; 
+            color: var(--glow-color); 
+            text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--primary-color);
+            margin-bottom: 30px; 
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            animation: pulse-glow 2s infinite alternate; 
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--primary-color);
+            }
+            to {
+                text-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--primary-color), 0 0 40px rgba(209, 0, 255, 0.5);
+            }
+        }
+
+        .hacker-feed {
+            width: 80%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            border: 1px solid var(--primary-color);
+            padding: 8px 0;
+            background-color: rgba(154, 0, 255, 0.1);
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%; 
+            animation: marquee 20s linear infinite;
+            color: #39ff14; 
+            text-shadow: 0 0 3px #39ff14;
+        }
+
+        @keyframes marquee {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        .login-container {
+            width: 350px;
+            padding: 40px;
+            background-color: var(--form-bg);
+            border-radius: 8px;
+            box-shadow: 0 0 25px var(--primary-color), 0 0 50px var(--glow-color);
+            border: 2px solid var(--border-color-login);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .shake-animation {
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+            border-color: var(--error-color) !important;
+            box-shadow: 0 0 20px var(--error-color) !important;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: var(--text-color-login);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color-login);
+            border: 1px solid var(--border-color-login);
+            border-radius: 4px;
+            color: var(--text-color-login);
+            font-size: 1em;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--glow-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--text-color-login);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .login-container button:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+        }
+        
+        /* ========================================================================= */
+        /* --- LAYAR 2: APP UTAMA STYLING (Bug WA) --- */
+        /* ========================================================================= */
+        
+        #mainAppScreen {
+            display: none; /* Default: tersembunyi */
+            padding: 0; 
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            position: absolute; /* Posisikan di atas layar login */
+            top: 0;
+            left: 0;
+            background-color: #0d001a; /* Background App Utama */
+            transition: opacity 0.5s ease;
+        }
+
+        .app-container {
+            background-color: var(--color-dark-bg); 
+            border: 3px solid var(--color-border-accent); 
+            box-shadow: 0 0 20px var(--color-border-accent); 
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            position: relative; 
+            overflow: hidden; 
+            z-index: 2; 
+        }
+
+        .app-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="1" fill="%234b0082"/></svg>'); 
+            background-size: 10px 10px;
+            opacity: 0.5;
+            z-index: 0; 
+        }
+
+        .app-container h2 {
+            color: var(--color-text-main); 
+            text-align: center;
+            text-shadow: 0 0 8px var(--color-neon-primary); 
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-container p {
+            color: var(--color-text-main);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        #inputNo {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 25px;
+            border: 2px solid var(--color-border-accent);
+            background-color: #000000; 
+            color: var(--color-neon-secondary); 
+            font-size: 16px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 8px var(--color-border-accent);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+            z-index: 1;
+        }
+
+        .select-mode {
+            width: 100%;
+            padding: 15px 15px;
+            background-color: var(--color-light-bg); 
+            color: var(--color-text-main); 
+            border: 2px solid var(--color-border-accent);
+            border-radius: 8px;
+            appearance: none; 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(160, 32, 240, 0.7); 
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .select-mode:hover {
+            background-color: #4b0082; 
+            box-shadow: 0 0 15px var(--color-neon-primary); 
+        }
+        
+        .select-mode option {
+            background-color: var(--color-dark-bg); 
+            color: var(--color-text-main); 
+            padding: 5px;
+        }
+        
+        .select-wrapper::after {
+            content: '▼'; 
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-neon-primary); 
+            pointer-events: none; 
+            font-size: 16px;
+            z-index: 2; 
+        }
+
+        #senderButton {
+            width: 100%;
+            padding: 18px;
+            background-color: var(--color-neon-primary); 
+            color: #000000; 
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 3px #fff;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        #senderButton:hover:not(:disabled) {
+            background-color: #e600e6;
+            box-shadow: 0 0 20px var(--color-neon-primary), 0 0 40px rgba(255, 0, 255, 0.5);
+        }
+
+        #senderButton:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            box-shadow: none;
+            color: #ccc;
+        }
+
+        /* --- OVERLAY & ANIMASI --- */
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 0, 26, 0.98); 
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: var(--color-text-main);
+            text-align: center;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .spinner {
+            border: 6px solid rgba(255, 0, 255, 0.3); 
+            border-top: 6px solid var(--color-neon-primary); 
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-box {
+            background-color: var(--color-light-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 3px solid var(--color-neon-secondary); 
+            box-shadow: 0 0 20px var(--color-neon-secondary);
+            display: none;
+            width: 85%;
+            max-width: 350px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .status-box h3 {
+            color: var(--color-neon-secondary);
+            margin-top: 0;
+            text-shadow: 0 0 5px var(--color-neon-secondary);
+            font-size: 22px;
+        }
+
+        .status-box p {
+            color: var(--color-text-main);
+            font-size: 16px;
+        }
+
+        .status-box .target-no {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--color-neon-primary);
+            margin-top: 15px;
+            text-shadow: 0 0 5px var(--color-neon-primary);
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="loginScreen">
+        <h1 class="main-title">FLUNZA CRASH</h1>
+
+        <div class="hacker-feed">
+            <div class="marquee-text">
+                MASUKKAN AKUN YANG SUDAH DIBERI OLEH ADMIN
+            </div>
+        </div>
+        
+        <div class="login-container" id="loginContainer">
+            <h2>ACCESS</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">USERNAME</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit">LOG IN</button>
+            </form>
+            <div class="info">
+                <p>// Authentication Required //</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mainAppScreen">
+        <div class="app-container">
+            <h2>👾 FLUNZA CRASH</h2>
+
+            <p>Pilih Bug</p>
+            <div class="select-wrapper">
+                <select id="selectBug" class="select-mode">
+                    <option value="" disabled selected>-- SELECT MODE --</option>
+                    <option value="DELAY INVIS">1. DELAY INVIS</option>
+                    <option value="CRASH ANDRO">2. CRASH ANDRO</option>
+                    <option value="CRASH IP">3. CRASH IP</option>
+                </select>
+            </div>
+
+            <input type="text" id="inputNo" placeholder="Masukkan No Target: 628123456789">
+            
+            <button id="senderButton">🚀 SEND BUG 🚀</button>
+        </div>
+    </div>
+    
+    <div class="overlay" id="overlay">
+        <div id="loadingArea">
+            <div class="spinner"></div>
+            <p>INJECTING BUG... PLEASE WAIT</p>
+        </div>
+
+        <div class="status-box" id="successBox">
+            <h3>✅ STATUS: SUCCESS</h3>
+            <p>sukses send bug:</p>
+            <span class="target-no" id="successNo"></span>
+            <p style="margin-top: 15px; color: #ccc; font-size: 12px;"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- Variabel Login ---
+        const loginForm = document.getElementById('loginForm');
+        const loginContainer = document.getElementById('loginContainer');
+        const loginScreen = document.getElementById('loginScreen');
+        const mainAppScreen = document.getElementById('mainAppScreen');
+        
+        const correctUsername = 'permen';
+        const correctPassword = '100613';
+
+        // --- Variabel App Utama ---
+        const inputNo = document.getElementById('inputNo');
+        const selectBug = document.getElementById('selectBug');
+        const senderButton = document.getElementById('senderButton');
+        const overlay = document.getElementById('overlay');
+        const loadingArea = document.getElementById('loadingArea');
+        const successBox = document.getElementById('successBox');
+        const successNo = document.getElementById('successNo');
+        
+        const LOADING_DURATION = 3000; 
+        const SUCCESS_DISPLAY_DURATION = 5000;
+        
+        // =========================================================================
+        // LOGIKA LOGIN
+        // =========================================================================
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+
+            loginContainer.classList.remove('shake-animation'); // Hapus animasi shake
+            
+            if (usernameInput === correctUsername && passwordInput === correctPassword) {
+                // LOGIN BERHASIL: Ganti Layar
+                
+                // 1. Sembunyikan layar login (dengan transisi)
+                loginScreen.style.opacity = '0';
+                loginScreen.style.transform = 'translateY(-20px)';
+                
+                // 2. Tunda penampilan layar utama
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    
+                    // 3. Tampilkan layar utama
+                    mainAppScreen.style.display = 'flex';
+                    // mainAppScreen.style.opacity = '0'; // Untuk transisi fade-in
+                    
+                    // 4. Perubahan background body (opsional, untuk gaya app utama)
+                    document.body.style.backgroundColor = '#0d001a';
+
+                    // setTimeout(() => {
+                    //     mainAppScreen.style.opacity = '1';
+                    // }, 50);
+
+                }, 500); // Sesuaikan dengan durasi transisi CSS
+                
+            } else {
+                // Kredensial salah: Tambahkan animasi shake
+                loginContainer.classList.add('shake-animation');
+                
+                setTimeout(() => {
+                    loginContainer.classList.remove('shake-animation');
+                }, 850); 
+            }
+        });
+
+
+        // =========================================================================
+        // LOGIKA APLIKASI UTAMA (Bug WA)
+        // =========================================================================
+        
+        // Fungsi untuk menampilkan overlay
+        function showOverlay(elementToShow, number) {
+            loadingArea.style.display = 'none';
+            successBox.style.display = 'none';
+            
+            elementToShow.style.display = 'flex'; 
+            overlay.style.display = 'flex';
+            
+            if (elementToShow === successBox) {
+                successNo.textContent = number;
+                
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    senderButton.disabled = false; 
+                    
+                    // Reset input setelah sukses
+                    selectBug.value = ''; 
+                    inputNo.value = ''; 
+                }, SUCCESS_DISPLAY_DURATION); 
+            }
+        }
+
+        // Aksi Tombol Sender
+        senderButton.addEventListener('click', function() {
+            let phoneNumber = inputNo.value.trim();
+            let selectedBugType = selectBug.value; 
+
+            // 1. Validasi
+            if (phoneNumber === '' || phoneNumber === '62') {
+                alert('Mohon masukkan nomor WhatsApp tujuan terlebih dahulu.');
+                return;
+            }
+            if (selectedBugType === '') {
+                alert('Mohon pilih jenis bug terlebih dahulu.');
+                return;
+            }
+
+            // 2. Cegah klik berulang dan mulai simulasi
+            senderButton.disabled = true;
+            
+            // 3. Tampilkan Loading
+            showOverlay(loadingArea, null);
+
+            // 4. Proses (Simulasi Waktu)
+            setTimeout(() => {
+                // 5. Tampilkan Pesan Berhasil
+                showOverlay(successBox, phoneNumber);
+                
+            }, LOADING_DURATION);
+        });
+    </script>
+</body>
+</html>
